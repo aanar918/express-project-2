@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <%- include('../partials/head'); %>
+  </head>
+  <body class="container">
+    <header><%- include('../partials/header'); %></header>
+
+    <main>
+      <div class="row">
+        <div class="col-6 col-sm-8">
+          <div class="jumbotron">
+            <h1>Books</h1>
+          </div>
+          <ul>
+            <% data.forEach(i => { %>
+            <li>
+              <p><%= i.title %></p>
+              <%= i.author %>
+              <p></p>
+            </li>
+            <% }); %>
+          </ul>
+        </div>
+      </div>
+    </main>
+
+    <footer><%- include('../partials/footer'); %></footer>
+  </body>
+</html>

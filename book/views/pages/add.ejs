@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <%- include('../partials/head'); %>
+  </head>
+  <body class="container">
+    <header><%- include('../partials/header'); %></header>
+
+    <script>
+        const handleSubmit = e => {
+            // e.preventDefault();
+            // for(let i = 0; i < 1000000; i++) {
+                console.log('here');
+            // }
+        }
+    </script>
+
+    <main>
+      <div class="row">
+        <div class="col-sm-8">
+          <div class="jumbotron">
+            <h1>Add Books</h1>
+          </div>
+          
+          <form onsubmit="return handleSubmit()">
+            <% keys.forEach(i => { %>
+                <div class="form-group">
+                  <label for="exampleInputEmail1"><%= i %></label>
+                  <input type="text" class="form-control" id="<%= i %>" aria-describedby="emailHelp">
+                </div>
+            <% }); %>
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </form>
+
+        </div>
+      </div>
+    </main>
+
+    <footer><%- include('../partials/footer'); %></footer>
+  </body>
+</html>
