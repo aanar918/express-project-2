@@ -7,8 +7,6 @@ const json = require("./data/books.json");
 // const router = express.Router();
 // app.use('/', router);
 
-debugger;
-//  set the view engine to ejs
 app.set("view engine", "ejs");
 
 //  using res.render to load up an ejs view file
@@ -144,8 +142,8 @@ app.get("/book-with-most-pages", (req, res) => {
       maxPages = data[i];
     }
   }
-  console.log(maxPages);
-  res.json(show.data.push(maxPages));
+  show.data.push(maxPages)
+  res.json(show);
 });
 
 // get book by min pages
@@ -162,9 +160,8 @@ app.get("/book-with-least-pages", (req, res) => {
       minPages = data[i];
     }
   }
-  console.log(minPages);
-
-  res.json(show.data.push(minPages));
+  show.data.push(minPages)
+  res.json(show);
 });
 
 /*
