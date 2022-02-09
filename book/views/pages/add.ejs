@@ -8,7 +8,6 @@
 
     <script>
         const handleSubmit = e => {
-            // debugger;
             e.preventDefault();
             console.log(e)
             
@@ -21,12 +20,12 @@
           <div class="jumbotron">
             <h1>Add Books</h1>
           </div>
-          <!-- <form method="GET" action="/about"> -->
+          <form method="GET" action="/about">
           <form class="form-row" onsubmit="return handleSubmit(this)">
             <% keys.forEach(i => { %>
               <div class="form-group col-md-6">
-                <label for="exampleInputEmail1"><%= i %></label>
-                <input type="text" class="form-control" id="<%= i %>" aria-describedby="emailHelp">
+                <label for="<%= i %>"><%= i.toUpperCase() %></label>
+                <input type="text" class="form-control" id="<%= i %>">
               </div>
             <% }); %>
             <button type="submit" class="btn btn-primary">Submit</button>
