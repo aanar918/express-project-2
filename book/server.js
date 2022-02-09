@@ -142,7 +142,7 @@ app.get("/book-with-most-pages", (req, res) => {
       maxPages = data[i];
     }
   }
-  show.data.push(maxPages)
+  show.data.push(maxPages);
   res.json(show);
 });
 
@@ -160,7 +160,26 @@ app.get("/book-with-least-pages", (req, res) => {
       minPages = data[i];
     }
   }
-  show.data.push(minPages)
+  show.data.push(minPages);
+  res.json(show);
+});
+
+// get book by min pages
+
+app.get("/publisher-occurences", (req, res) => {
+  let show = { data: [] };
+  let tmp = [];
+
+  for (let i = 0; i < data.length; i++) {
+    tmp.push(data[i].publisher);
+  }
+  console.log(tmp);
+
+  result = tmp.reduce((acc, curr) => {
+    return acc[curr] ? ++acc[curr] : (acc[curr] = 1), acc;
+  }, {});
+  show.data.push(result);
+
   res.json(show);
 });
 
