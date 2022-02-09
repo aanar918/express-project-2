@@ -168,14 +168,13 @@ app.get("/book-with-least-pages", (req, res) => {
 
 app.get("/publisher-occurences", (req, res) => {
   let show = { data: [] };
-  let tmp = [];
+  let publishers = [];
 
   for (let i = 0; i < data.length; i++) {
-    tmp.push(data[i].publisher);
+    publishers.push(data[i].publisher);
   }
-  console.log(tmp);
 
-  result = tmp.reduce((acc, curr) => {
+  result = publishers.reduce((acc, curr) => {
     return acc[curr] ? ++acc[curr] : (acc[curr] = 1), acc;
   }, {});
   show.data.push(result);
