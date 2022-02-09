@@ -8,10 +8,9 @@
 
     <script>
         const handleSubmit = e => {
-            // e.preventDefault();
-            // for(let i = 0; i < 1000000; i++) {
-                console.log('here');
-            // }
+            // debugger;
+            e.preventDefault();
+            
         }
     </script>
 
@@ -21,13 +20,13 @@
           <div class="jumbotron">
             <h1>Add Books</h1>
           </div>
-          
-          <form onsubmit="return handleSubmit()">
+          <!-- <form method="GET" action="/about"> -->
+          <form class="form-row" onsubmit="return handleSubmit()">
             <% keys.forEach(i => { %>
-                <div class="form-group">
-                  <label for="exampleInputEmail1"><%= i %></label>
-                  <input type="text" class="form-control" id="<%= i %>" aria-describedby="emailHelp">
-                </div>
+              <div class="form-group col-md-6">
+                <label for="exampleInputEmail1"><%= i %></label>
+                <input type="text" class="form-control" id="<%= i %>" aria-describedby="emailHelp">
+              </div>
             <% }); %>
             <button type="submit" class="btn btn-primary">Submit</button>
           </form>
