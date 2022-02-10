@@ -9,9 +9,28 @@
     <script>
       const handleSubmit = (e) => {
         let data = { data: [] };
+
+        let tmpObj = {};
+
+        const toJson = (key, val, buffer) => {
+          const obj = { [key]: val };
+          console.log(obj);
+          debugger;
+          buffer.push(obj);
+          return;
+        };
+
         for (let i = 0; i < e.length; i++) {
-          console.log(e[i].id, e[i].value);
+          const id = e[i].id.toString();
+          const value = e[i].value.toString();
+
+          const obj = { [id]: value };
+          tmpObj = Object.assign(obj, tmpObj);
+
+          // toJson(id, value, tmpObj);
         }
+        console.log(tmpObj);
+
         debugger;
       };
     </script>
@@ -33,8 +52,13 @@
             <% keys.forEach(i => { %>
             <div class="form-group col-md-6">
               <label for="<%= i %>"><%= i.toUpperCase() %></label>
-              <!-- <input type="text" class="form-control" id="<%= i %>" required/> -->
-              <input type="text" name="inputs" class="form-control" id="<%= i %>" />
+              <input
+                type="text"
+                name="inputs"
+                class="form-control"
+                id="<%= i %>"
+                required
+              />
             </div>
             <% }); %>
             <button type="submit" id="submitButton" class="btn btn-primary">
