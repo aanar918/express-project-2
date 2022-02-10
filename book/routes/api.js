@@ -11,7 +11,6 @@ const data = json.books;
 //		Search by item value
 
 function searchByValue(array, searchingItem, key) {
-	debugger
 	let maps = [];
 	let result;
 	for(let i = 0; i < array.length; i++) {
@@ -22,8 +21,9 @@ function searchByValue(array, searchingItem, key) {
 		}
 		maps.push(map);
 	}
-
-	return result;
+	
+	const obj = Object.fromEntries(result);
+	return obj;
 }
 
 //		Find extreme pages
