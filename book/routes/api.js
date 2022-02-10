@@ -4,11 +4,59 @@ const json = require("../data/books.json");
 
 const data = json.books;
 
+/*
+		Custom functions
+*/
+
+//		Search by item value
+
+function searchByValue(array, searchingItem, key) {
+
+	let targetKey = key + '';
+	targetKey = targetKey.toString();
+	console.log(targetKey)
+  let result = array.filter((i) => {
+    if (i.title === searchingItem) {
+      return i;
+    }
+  });
+  return result;
+}
+
+//		Find extreme pages
+
+const getExtremePages = (arr, extreme) => {
+	let result;
+  
+	if (extreme === -1) {
+	  let min = 9999999999999;
+	  for (let i = 0; i < arr.length; i++) {
+		const current = arr[i].pages;
+		if (current < min) {
+		  min = current;
+		  result = arr[i];
+		}
+	  }
+	} else if (extreme === 1) {
+	  let max = -9999999999999;
+	  for (let i = 0; i < arr.length; i++) {
+		const current = arr[i].pages;
+		if (current > max) {
+		  max = current;
+		  result = arr[i];
+		}
+	  }
+	}
+	return result;
+  }
+
+
+
 /*  
         Custom APIs
 */
 
-//      sorted by latest
+//      GET Sorted by latest
 
 app.get("/sorted-by-latest", (req, res) => {
   let toSort = data;
@@ -24,7 +72,7 @@ app.get("/sorted-by-latest", (req, res) => {
   res.json(show);
 });
 
-//      show authors only
+//      Ahow authors only
 
 app.get("/authors", (req, res) => {
   let show = { data: [] };
@@ -36,7 +84,7 @@ app.get("/authors", (req, res) => {
   res.json(show);
 });
 
-//  get all book info
+//   Get all book info
 
 app.get("/allbooks", (req, res) => {
   let show = { data: [] };
@@ -44,71 +92,35 @@ app.get("/allbooks", (req, res) => {
   res.json(show);
 });
 
-// get book by 'isbn'
+// Get book by 'isbn'
 
 app.get("/search-by-item", (req, res) => {
-  function searchByItem(array, searchingItem) {
-    let result = array.filter((i) => {
-      if (i.isbn === searchingItem) {
-        return i;
-      }
-    });
-    return result;
-  }
-  res.json(searchByItem(data, "9781484242216"));
+  res.json(searchByValue(data, "9781484242216"));
 });
 
-// get book by 'title'
+// Get book by 'title'
 
 app.get("/search-by-title", (req, res) => {
-  function searchByTitle(array, title) {
-    let result = array.filter((i) => {
-      if (i.title === title) {
-        return i;
-      }
-    });
-    return result;
-  }
-  res.json(searchByTitle(data, "Pro Git"));
+  res.json(searchByValue(data, "Pro Git", 'title'));
 });
 
-// get book with most pages
+// Get book with most pages
 
 app.get("/book-with-most-pages", (req, res) => {
   let show = { data: [] };
-  let maxPages;
-  let max = -9999999999999;
-
-  for (let i = 0; i < data.length; i++) {
-    const pages = data[i].pages;
-    if (pages > max) {
-      max = pages;
-      maxPages = data[i];
-    }
-  }
-  show.data.push(maxPages);
+  show.data.push(getExtremePages(data, 1));
   res.json(show);
 });
 
-// get book with least pages
+// Get book with least pages
 
 app.get("/book-with-least-pages", (req, res) => {
   let show = { data: [] };
-  let minPages;
-  let min = 9999999999999;
-
-  for (let i = 0; i < data.length; i++) {
-    const pages = data[i].pages;
-    if (pages < min) {
-      min = pages;
-      minPages = data[i];
-    }
-  }
-  show.data.push(minPages);
+  show.data.push(getExtremePages(data, -1));
   res.json(show);
 });
 
-//      get publisher occurences
+//      Get publisher occurences
 
 app.get("/publisher-occurences", (req, res) => {
   let show = { data: [] };
@@ -126,4 +138,22 @@ app.get("/publisher-occurences", (req, res) => {
   res.json(show);
 });
 
-module.exports = app 
+//      Delete book
+
+app.get("/delete", (req, res) => {
+  let show = { data: [] };
+  let publishers = [];
+
+  for (let i = 0; i < data.length; i++) {
+    publishers.push(data[i].publisher);
+  }
+
+  result = publishers.reduce((acc, curr) => {
+    return acc[curr] ? ++acc[curr] : (acc[curr] = 1), acc;
+  }, {});
+  show.data.push(result);
+
+  res.json(show);
+});
+
+module.exports = app;
