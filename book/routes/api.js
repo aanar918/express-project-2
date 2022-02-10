@@ -11,25 +11,19 @@ const data = json.books;
 //		Search by item value
 
 function searchByValue(array, searchingItem, key) {
-
-	const map = new Map();
+	debugger
+	let maps = [];
+	let result;
 	for(let i = 0; i < array.length; i++) {
-		map.set(array[i].isbn, array[i]);
-		console.log(map.has(array[i].isbn), array[i]);
-
+		const map = new Map(Object.entries(array[i]));
+		if(searchingItem === map.get(key)) {
+			result = map;
+			console.log(map)
+		}
+		maps.push(map);
 	}
-	// let targetKey = key + '';
-	// targetKey = targetKey.toString();
-	// console.log(targetKey)
-	// console.log(map);
-	
-  let result = array.filter((i) => {
-	//   console.log(i)
-    if (i.title === searchingItem) {
-      return i;
-    }
-  });
-  return result;
+
+	return result;
 }
 
 //		Find extreme pages
@@ -58,8 +52,6 @@ const getExtremePages = (arr, extreme) => {
 	}
 	return result;
   }
-
-
 
 /*  
         Custom APIs

@@ -8,22 +8,27 @@
 
     <script>
       const handleSubmit = (e) => {
-
-        
         let data = { data: [] };
-        
         let tmpObj = {};
+
+        const toJson = (array, id, value) => {};
+
         for (let i = 0; i < e.length; i++) {
-          const ifNumber = /^[0-9]{10,}]$/;
-          // check here
+          const isbnTemplate = /^[0-9]{10,}]$/;
           const id = e[i].id.toString();
-          const value = e[i].value.toString();
+          let value = e[i].value.toString();
+
+          if (id === "isbn" && !value.match(isbnTemplate)) {
+            value = null;
+            // alert(
+            //   '"isbn" must be at least 10 characters long and can be only numbers'
+            // );
+          };
 
           const obj = { [id]: value };
           tmpObj = Object.assign(obj, tmpObj);
         }
         console.log(tmpObj);
-
         debugger;
       };
     </script>
@@ -50,8 +55,8 @@
                 name="inputs"
                 class="form-control"
                 id="<%= i %>"
-                required
               />
+              <!-- required -->
             </div>
             <% }); %>
             <button type="submit" id="submitButton" class="btn btn-primary">
