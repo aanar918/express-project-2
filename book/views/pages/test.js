@@ -1,4 +1,3 @@
 const fs = require('fs')
 
-fs.writeFileSync("foo.txt", "bar2");
-fs.appendFileSync("junk.csv", "Line:");
+fs.appendFileSync("logs.txt", "Line \n");
