@@ -1,13 +1,13 @@
-// load the things we need
 const express = require("express");
 const app = express();
 const json = require("../data/books.json");
-// const router = express.Router();
-// app.use('/', router);
 
 app.set("view engine", "ejs");
 
-//  using res.render to load up an ejs view file
+/*
+        Renders
+*/
+
 
 //  home page
 
@@ -38,11 +38,13 @@ app.get("/", function (req, res) {
 });
 
 //  about page
+
 app.get("/about", function (req, res) {
   res.render("pages/about");
 });
 
 //  all books page
+
 app.get("/all-books", function (req, res) {
   let show = data;
   // res.json(data);
@@ -52,37 +54,13 @@ app.get("/all-books", function (req, res) {
 });
 
 //  add page
+
 app.get("/add", function (req, res) {
   const keys = Object.keys(data[0]);
   res.render("pages/add", {
     keys,
   });
 });
-
-/*  
-        Custom APIs
-*/
-
-
-
-
-//  book info
-
-// get book by 'isbn'
-
-
-// get book by 'title'
-
-
-// get book by max pages
-
-
-// get book by min pages
-
-
-
-// get book by min pages
-
 
 /*
         Not found page
@@ -91,9 +69,5 @@ app.get("/add", function (req, res) {
 app.get("/*", (req, res) => {
   res.render("pages/not-found");
 });
-
-/*
-        Not found page
-*/
 
  module.exports = app

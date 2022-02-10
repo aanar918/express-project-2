@@ -1,5 +1,3 @@
-// load the things we need
-
 const apiRoute  = require('./routes/api')
 const adminRoute  = require('./routes/admin')
 

@@ -36,7 +36,8 @@ app.get("/authors", (req, res) => {
   res.json(show);
 });
 
-//  book info
+//  get all book info
+
 app.get("/allbooks", (req, res) => {
   let show = { data: [] };
   show.data.push(data);

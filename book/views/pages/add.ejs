@@ -7,30 +7,40 @@
     <header><%- include('../partials/header'); %></header>
 
     <script>
-        const handleSubmit = e => {
-            e.preventDefault();
-            console.log(e)
-            
+      const handleSubmit = (e) => {
+        let data = { data: [] };
+        for (let i = 0; i < e.length; i++) {
+          console.log(e[i].id, e[i].value);
         }
+        debugger;
+      };
     </script>
 
     <main class="d-flex align-items-center justify-content-center">
+      <!-- <div class="row justify-content-center"> -->
       <div class="row">
         <div class="col-sm-8">
           <div class="jumbotron">
             <h1>Add Books</h1>
           </div>
-          <!-- <form method="GET" action="/about"> -->
-          <form class="form-row" onsubmit="return handleSubmit(this)">
+          <form
+            id="addBook"
+            onsubmit="return handleSubmit(this.inputs)"
+            class="form-row"
+            method="get"
+            action="/add"
+          >
             <% keys.forEach(i => { %>
-              <div class="form-group col-md-6">
-                <label for="<%= i %>"><%= i.toUpperCase() %></label>
-                <input type="text" class="form-control" id="<%= i %>">
-              </div>
+            <div class="form-group col-md-6">
+              <label for="<%= i %>"><%= i.toUpperCase() %></label>
+              <!-- <input type="text" class="form-control" id="<%= i %>" required/> -->
+              <input type="text" name="inputs" class="form-control" id="<%= i %>" />
+            </div>
             <% }); %>
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="submit" id="submitButton" class="btn btn-primary">
+              Submit
+            </button>
           </form>
-
         </div>
       </div>
     </main>
