@@ -12,10 +12,19 @@ const data = json.books;
 
 function searchByValue(array, searchingItem, key) {
 
-	let targetKey = key + '';
-	targetKey = targetKey.toString();
-	console.log(targetKey)
+	const map = new Map();
+	for(let i = 0; i < array.length; i++) {
+		map.set(array[i].isbn, array[i]);
+		console.log(map.has(array[i].isbn), array[i]);
+
+	}
+	// let targetKey = key + '';
+	// targetKey = targetKey.toString();
+	// console.log(targetKey)
+	// console.log(map);
+	
   let result = array.filter((i) => {
+	//   console.log(i)
     if (i.title === searchingItem) {
       return i;
     }
@@ -95,7 +104,7 @@ app.get("/allbooks", (req, res) => {
 // Get book by 'isbn'
 
 app.get("/search-by-item", (req, res) => {
-  res.json(searchByValue(data, "9781484242216"));
+  res.json(searchByValue(data, "9781484242216", 'isbn'));
 });
 
 // Get book by 'title'
@@ -142,17 +151,7 @@ app.get("/publisher-occurences", (req, res) => {
 
 app.get("/delete", (req, res) => {
   let show = { data: [] };
-  let publishers = [];
-
-  for (let i = 0; i < data.length; i++) {
-    publishers.push(data[i].publisher);
-  }
-
-  result = publishers.reduce((acc, curr) => {
-    return acc[curr] ? ++acc[curr] : (acc[curr] = 1), acc;
-  }, {});
-  show.data.push(result);
-
+  show.data.push(searchByValue(data, '9781593279509', 'isbn'));
   res.json(show);
 });
 

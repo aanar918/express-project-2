@@ -16,17 +16,17 @@ app.get("/", function (req, res) {
   const limit = 3;
   let randomData = [];
   const dataLength = data.length;
-  let prevRand = -1;
+  let prevRands = [];
 
   let i = 0;
   while (i < limit) {
     const randomIndex = Math.floor(Math.random() * (dataLength - 1));
-    if (prevRand !== randomIndex) {
+    if (!prevRands.includes(randomIndex)) {
       randomData.push(data[randomIndex]);
-      prevRand = randomIndex;
-      console.log(prevRand);
+      prevRands.push(randomIndex);
+      console.log(prevRands);
       i++;
-    }
+    } else continue;
   }
   console.log("-------");
 

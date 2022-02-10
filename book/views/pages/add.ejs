@@ -8,26 +8,19 @@
 
     <script>
       const handleSubmit = (e) => {
+
+        
         let data = { data: [] };
-
+        
         let tmpObj = {};
-
-        const toJson = (key, val, buffer) => {
-          const obj = { [key]: val };
-          console.log(obj);
-          debugger;
-          buffer.push(obj);
-          return;
-        };
-
         for (let i = 0; i < e.length; i++) {
+          const ifNumber = /^[0-9]{10,}]$/;
+          // check here
           const id = e[i].id.toString();
           const value = e[i].value.toString();
 
           const obj = { [id]: value };
           tmpObj = Object.assign(obj, tmpObj);
-
-          // toJson(id, value, tmpObj);
         }
         console.log(tmpObj);
 
