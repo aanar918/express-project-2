@@ -1,6 +1,7 @@
 const express = require("express");
 const app = express();
 const json = require("../data/books.json");
+const fs = require("fs");
 
 const data = json.books;
 
@@ -11,47 +12,47 @@ const data = json.books;
 //		Search by item value
 
 function searchByValue(array, searchingItem, key) {
-	let maps = [];
-	let result;
-	for(let i = 0; i < array.length; i++) {
-		const map = new Map(Object.entries(array[i]));
-		if(searchingItem === map.get(key)) {
-			result = map;
-			console.log(map)
-		}
-		maps.push(map);
-	}
-	
-	const obj = Object.fromEntries(result);
-	return obj;
+  let maps = [];
+  let result;
+  for (let i = 0; i < array.length; i++) {
+    const map = new Map(Object.entries(array[i]));
+    if (searchingItem === map.get(key)) {
+      result = map;
+      //   console.log(map);
+    }
+    maps.push(map);
+  }
+
+  const obj = Object.fromEntries(result);
+  return obj;
 }
 
 //		Find extreme pages
 
 const getExtremePages = (arr, extreme) => {
-	let result;
-  
-	if (extreme === -1) {
-	  let min = 9999999999999;
-	  for (let i = 0; i < arr.length; i++) {
-		const current = arr[i].pages;
-		if (current < min) {
-		  min = current;
-		  result = arr[i];
-		}
-	  }
-	} else if (extreme === 1) {
-	  let max = -9999999999999;
-	  for (let i = 0; i < arr.length; i++) {
-		const current = arr[i].pages;
-		if (current > max) {
-		  max = current;
-		  result = arr[i];
-		}
-	  }
-	}
-	return result;
+  let result;
+
+  if (extreme === -1) {
+    let min = 9999999999999;
+    for (let i = 0; i < arr.length; i++) {
+      const current = arr[i].pages;
+      if (current < min) {
+        min = current;
+        result = arr[i];
+      }
+    }
+  } else if (extreme === 1) {
+    let max = -9999999999999;
+    for (let i = 0; i < arr.length; i++) {
+      const current = arr[i].pages;
+      if (current > max) {
+        max = current;
+        result = arr[i];
+      }
+    }
   }
+  return result;
+};
 
 /*  
         Custom APIs
@@ -63,8 +64,8 @@ app.get("/sorted-by-latest", (req, res) => {
   let toSort = data;
   function customSort(array, key) {
     return array.sort(function (a, b) {
-      var x = a[key];
-      var y = b[key];
+      let x = a[key];
+      let y = b[key];
       return x < y ? 1 : x > y ? -1 : 0;
     });
   }
@@ -96,13 +97,13 @@ app.get("/allbooks", (req, res) => {
 // Get book by 'isbn'
 
 app.get("/search-by-item", (req, res) => {
-  res.json(searchByValue(data, "9781484242216", 'isbn'));
+  res.json(searchByValue(data, "9781484242216", "isbn"));
 });
 
 // Get book by 'title'
 
 app.get("/search-by-title", (req, res) => {
-  res.json(searchByValue(data, "Pro Git", 'title'));
+  res.json(searchByValue(data, "Pro Git", "title"));
 });
 
 // Get book with most pages
@@ -143,7 +144,10 @@ app.get("/publisher-occurences", (req, res) => {
 
 app.get("/delete", (req, res) => {
   let show = { data: [] };
-  show.data.push(searchByValue(data, '9781593279509', 'isbn'));
+  show.data.push(searchByValue(data, "9781593279509", "isbn"));
+  console.log(__dirname);
+  let today = new Date().toISOString().slice(0, 10);
+  fs.appendFileSync("logs.txt", `DELETE: ${today} ${JSON.stringify(show)}\n`);
   res.json(show);
 });
 
