@@ -7,17 +7,15 @@
     <header><%- include('../partials/header'); %></header>
 
     <script>
+      
       const handleSubmit = (e) => {
-
-        const fs = require('fs');
-
         let data = { data: [] };
-        let tmpObj = {};
 
+        let tmpObj = {};
         const toJson = (array, id, value) => {};
 
         for (let i = 0; i < e.length; i++) {
-          const isbnTemplate = /^[0-9]{10,}]$/;
+          const isbnTemplate = /^[0-9]{10,}$/;
           const id = e[i].id.toString();
           let value = e[i].value.toString();
 

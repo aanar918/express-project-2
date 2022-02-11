@@ -1,15 +1,16 @@
 const express = require("express");
 const app = express();
 const json = require("../data/books.json");
-const fs = require("fs");
-
+const logger = require('../logs/logger.js')
 const data = json.books;
+
+// console.log(typeof(logger.logger))
 
 /*
 		Custom functions
 */
 
-//		Search by item value
+//		Get object by item value
 
 function searchByValue(array, searchingItem, key) {
   let maps = [];
@@ -145,9 +146,8 @@ app.get("/publisher-occurences", (req, res) => {
 app.get("/delete", (req, res) => {
   let show = { data: [] };
   show.data.push(searchByValue(data, "9781593279509", "isbn"));
-  console.log(__dirname);
-  let today = new Date().toISOString().slice(0, 10);
-  fs.appendFileSync("logs.txt", `DELETE: ${today} ${JSON.stringify(show)}\n`);
+  const writeLog = logger.logger;
+  writeLog(show, 'delete');
   res.json(show);
 });
 
