@@ -24,17 +24,23 @@ app.get("/", function (req, res) {
     if (!prevRands.includes(randomIndex)) {
       randomData.push(data[randomIndex]);
       prevRands.push(randomIndex);
-      console.log(prevRands);
+      // console.log(prevRands);
       i++;
     } else continue;
   }
-  console.log("-------");
+  // console.log("-------");
 
   let show = randomData;
   res.render("pages/books", {
     show,
     limit,
   });
+});
+
+//  api docs page
+
+app.get("/apis", function (req, res) {
+  res.render("pages/api");
 });
 
 //  about page
@@ -47,7 +53,6 @@ app.get("/about", function (req, res) {
 
 app.get("/all-books", function (req, res) {
   let show = data;
-  // res.json(data);
   res.render("pages/books", {
     show,
   });
