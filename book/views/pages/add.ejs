@@ -44,7 +44,7 @@
             onsubmit="return handleSubmit(this.inputs)"
             class="form-row"
             method="get"
-            action="/add"
+            action="/about"
           >
             <% keys.forEach(i => { %>
             <div class="form-group col-md-6">
@@ -54,8 +54,8 @@
                 name="inputs"
                 class="form-control"
                 id="<%= i %>"
-              />
-              <!-- required -->
+                required
+                />
             </div>
             <% }); %>
             <button type="submit" id="submitButton" class="btn btn-primary">
